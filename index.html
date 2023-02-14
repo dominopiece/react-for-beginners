@@ -15,37 +15,76 @@
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-    const root = document.getElementById("root")
+    // const root = document.getElementById("root")
 
     // const h3 = React.createElement(
     //     "h3", {
-    //     id: "title",
-    //     onMouseEnter: () => console.log("mouse enter ")
-    // }, "Hello span");
-    // render 중복 안됨.
-    // ReactDOM.render(span, root)
-    const Title = () => (<h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello I'm a title"</h3>)
+    // //     id: "title",
+    // //     onMouseEnter: () => console.log("mouse enter ")
+    // // }, "Hello span");
+    // // render 중복 안됨.
+    // // ReactDOM.render(span, root)
+    // const Title = () => (<h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello I'm a title"</h3>)
 
-    // const btn = React.createElement("button", {
-    //     onClick: () => console.log("im clicked"),
-    //     style: {
-    //         backgroundColor: "pink",
-    //     },
-    // }, "click me")
-    const Button = () => (<button style={{
-        backgroundColor: "pink"
-    }} onClick={() => console.log("im clicked")}>click me</button>)
+    // // const btn = React.createElement("button", {
+    // //     onClick: () => console.log("im clicked"),
+    // //     style: {
+    // //         backgroundColor: "pink",
+    // //     },
+    // // }, "click me")
+    // const Button = () => (<button style={{
+    //     backgroundColor: "pink"
+    // }} onClick={() => console.log("im clicked")}>click me</button>)
 
     // span, btn render
     // const container = React.createElement("div", null, [Title, Button])
-    const Container = () => (
-        <div>
-            <Title />
-            <Button />
-        </div>
-    )
-    // ReactDOM.render(btn, root)
-    ReactDOM.render(<Container />, root)
+    // const Container = () => (
+    //     <div>
+    //         <Title />
+    //         <Button />
+    //     </div>
+    // )
+    // // ReactDOM.render(btn, root)
+    // ReactDOM.render(<Container />, root)
+
+    // // state(bad way)
+    // const root = document.getElementById("root")
+    // let counter = 0;
+    // function countUP(){
+    //     counter += 1;
+    //     // ReactDOM.render(<Container />, root)
+    //     reRender();
+    // }
+    // function reRender(){
+    //     ReactDOM.render(<Container />, root)
+    // }
+    // const Container = () => (
+    //     <div>
+    //         <h3>Total click: {counter}</h3>
+    //         <button onClick={countUP}>Click me</button>
+    //     </div>
+    // ); 
+    // // ReactDOM.render(<Container />, root)
+    // reRender()
+
+    const root = document.getElementById("root")
+    function App() {
+        // const data = React.useState(0)
+        // console.log(data);
+        const [counter, setCounter] = React.useState(0)
+
+        const onClick = () => {
+            setCounter(counter + 1);
+        }
+        return(
+            <div>
+                <h3>Total click: {counter}</h3>
+                <button onClick={onClick}>Click me</button>
+            </div>
+        )
+    }
+    ReactDOM.render(<App />, root);
+
 </script>
 
 </html>
