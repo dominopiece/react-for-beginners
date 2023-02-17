@@ -178,25 +178,29 @@
 
     // Props: obj
     // function Btn(props) {
-    function Btn({ whatever, big }) {
+    // Memo
+    function Btn({ whatever, onClick }) {
+        console.log(whatever, "was render");
         return <button
+            onClick={onClick}
             style={{
                 backgroundColor: "pink",
                 color: "white",
                 padding: "10px 20px",
                 border: 0,
                 borderRadius: 10,
-                fontSize: big ? 18 : 10,
             }}
         >
             { whatever }
         </button>
     }
     function App() {
+        const [value, setValue] = React.useState("Save");
+        const changeValue = () => setValue("Revert Changes");
         return (
             <div>
-                <Btn whatever="Save" big = { true }/>
-                <Btn whatever="Continue" big = { false }/>
+                <Btn whatever={value} onClick={changeValue} />
+                <Btn whatever="Continue" />
             </div>
         )
     }
