@@ -11,8 +11,11 @@
 <body>
     <div id="root"></div>
 </body>
-<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<!-- <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script> -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- Props Types -->
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     // const root = document.getElementById("root")
@@ -179,7 +182,7 @@
     // Props: obj
     // function Btn(props) {
     // Memo
-    function Btn({ whatever, onClick }) {
+    function Btn({ whatever = "default", onClick, fontSize }) {
         console.log(whatever, "was render");
         return <button
             onClick={onClick}
@@ -189,6 +192,7 @@
                 padding: "10px 20px",
                 border: 0,
                 borderRadius: 10,
+                fontSize: fontSize,
             }}
         >
             { whatever }
@@ -196,16 +200,26 @@
     }
     // memo
     const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+        whatever: PropTypes.string,
+        fontSize: PropTypes.number.isRequired,
+    }
     function App() {
         const [value, setValue] = React.useState("Save");
         const changeValue = () => setValue("Revert Changes");
         return (
+            // <div>
+            //     <Btn whatever={value} onClick={changeValue} />
+            //     <Btn whatever="Continue" />
+            //     <MemorizedBtn whatever={value} onClick={changeValue} />
+            //     <MemorizedBtn whatever="Continue" />
+            // </div>
             <div>
-                <Btn whatever={value} onClick={changeValue} />
-                <Btn whatever="Continue" />
-                <MemorizedBtn whatever={value} onClick={changeValue} />
-                <MemorizedBtn whatever="Continue" />
-
+                <Btn whatever="Save" fontSize={18} />
+                <Btn whatever={14} fontSize={"Continue"} />
+                <Btn whatever={"Continue"} fontSize={14} />
+                <Btn whatever={"Continue"} fontSize={10} />
+                <Btn fontSize={20} />
             </div>
         )
     }
