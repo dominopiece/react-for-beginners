@@ -110,6 +110,7 @@ function App() {
     }
     // console.log("outside", toDos);
   };
+  // console.log("outside Fn", toDos);
   return (
     <div>
       <h1>My To Dos ({toDos.length})</h1>
@@ -122,6 +123,12 @@ function App() {
         />
         <button>Add To DO</button>
       </form>
+      <hr />
+      <ul>
+        {toDos.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }
