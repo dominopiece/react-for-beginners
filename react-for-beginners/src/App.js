@@ -1,6 +1,6 @@
 import styles from "./App.module.css";
 import { useState, useEffect } from "react";
-import { func } from "prop-types";
+import { array, func } from "prop-types";
 
 // function App() {
 //   const [counter, setCounter] = useState(0);
@@ -48,40 +48,80 @@ import { func } from "prop-types";
 //   );
 // }
 
-// cleanup
-function Hello() {
-  // const byeFn = () => {
-  //   console.log("bye");
-  // };
-  // const hiFn = () => {
-  //   console.log("hi");
-  //   return byeFn;
-  // };
-  // useEffect(hiFn, []);
+// // # cleanup
+// function Hello() {
+//   // const byeFn = () => {
+//   //   console.log("bye");
+//   // };
+//   // const hiFn = () => {
+//   //   console.log("hi");
+//   //   return byeFn;
+//   // };
+//   // useEffect(hiFn, []);
 
-  useEffect(() => {
-    console.log("hi");
-    return () => {
-      console.log("bye");
-    };
-  }, []);
+//   useEffect(() => {
+//     console.log("hi");
+//     return () => {
+//       console.log("bye");
+//     };
+//   }, []);
 
-  useEffect(() => {
-    console.log("created");
-    return () => console.log("destroyed");
-  }, []);
-  return <h1>Hello</h1>;
-}
+//   useEffect(() => {
+//     console.log("created");
+//     return () => console.log("destroyed");
+//   }, []);
+//   return <h1>Hello</h1>;
+// }
+
+// function App() {
+//   const [showing, setShowing] = useState(false);
+//   const onClick = () => {
+//     setShowing((prev) => !prev);
+//   };
+//   return (
+//     <div>
+//       {showing ? <Hello /> : null}
+//       <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+//     </div>
+//   );
+// }
 
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => {
-    setShowing((prev) => !prev);
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const onChagne = (event) => {
+    setToDo(event.target.value);
+    console.log(toDo);
+  };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(toDo);
+    if (toDo === "") {
+      return;
+    } else {
+      // setToDos(currentArray => {
+      //  const newArray = [toDo, ...currentArray]
+      //  console.log("inside", newArray);
+      //  return newArray;
+      // })
+      setToDos((currentArray) => [toDo, ...currentArray]);
+      // console.log(toDos);
+      setToDo("");
+    }
+    // console.log("outside", toDos);
   };
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChagne}
+          value={toDo}
+          type="text"
+          placeholder="Write your todo"
+        />
+        <button>Add To DO</button>
+      </form>
     </div>
   );
 }
