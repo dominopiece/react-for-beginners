@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div>
-      <h1>{movies.length}</h1>
+      <h1>Movie Rating: Top {movies.length}</h1>
       {/* <li>
         {movies.map((item) => (
           <ol key={item.id}>{item.url}</ol>
@@ -42,10 +42,13 @@ function App() {
       ) : (
         <div>
           {movies.map((movie) => (
-            <div key={movie.id}> 
+            <div key={movie.id}>
               <img src={movie.medium_cover_image} />
               <h2>{movie.title}</h2>
-              <h3> rating: {movie.rating} year:{movie.year} </h3>
+              <h3>
+                {" "}
+                rating: {movie.rating} year:{movie.year}{" "}
+              </h3>
               <p>{movie.summary} </p>
               <ul>
                 {movie.genres.map((genre) => (
