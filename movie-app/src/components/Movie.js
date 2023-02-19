@@ -1,13 +1,16 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function Movie({ coverImg, title, rating, year, summary, genres }) {
   return (
     <div>
       <img src={coverImg} alt={title} />
-      <h2>{title}</h2>
+      <h2>
+        {/* Link to 사용 시 새로고침이 없음 */}
+        <Link to="/movie">{title}/</Link>
+      </h2>
       <h3>
-        {" "}
-        rating: {rating} year:{year}{" "}
+        rating: {rating} year:{year}
       </h3>
       <p>{summary} </p>
       <ul>
