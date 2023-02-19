@@ -1,6 +1,6 @@
-import styles from "./App.module.css";
+// import styles from "./App.module.css";
 import { useState, useEffect } from "react";
-import { array, func } from "prop-types";
+// import { array, func } from "prop-types";
 
 // function App() {
 //   const [counter, setCounter] = useState(0);
@@ -86,49 +86,79 @@ import { array, func } from "prop-types";
 //   );
 // }
 
+// function App() {
+//   const [toDo, setToDo] = useState("");
+//   const [toDos, setToDos] = useState([]);
+//   const onChagne = (event) => {
+//     setToDo(event.target.value);
+//     console.log(toDo);
+//   };
+//   const onSubmit = (event) => {
+//     event.preventDefault();
+//     console.log(toDo);
+//     if (toDo === "") {
+//       return;
+//     } else {
+//       // setToDos(currentArray => {
+//       //  const newArray = [toDo, ...currentArray]
+//       //  console.log("inside", newArray);
+//       //  return newArray;
+//       // })
+//       setToDos((currentArray) => [toDo, ...currentArray]);
+//       // console.log(toDos);
+//       setToDo("");
+//     }
+//     // console.log("outside", toDos);
+//   };
+//   // console.log("outside Fn", toDos);
+//   return (
+//     <div>
+//       <h1>My To Dos ({toDos.length})</h1>
+//       <form onSubmit={onSubmit}>
+//         <input
+//           onChange={onChagne}
+//           value={toDo}
+//           type="text"
+//           placeholder="Write your todo"
+//         />
+//         <button>Add To DO</button>
+//       </form>
+//       <hr />
+//       <ul>
+//         {toDos.map((item, index) => (
+//           <li key={index}>{item}</li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+// # Coin Traker
 function App() {
-  const [toDo, setToDo] = useState("");
-  const [toDos, setToDos] = useState([]);
-  const onChagne = (event) => {
-    setToDo(event.target.value);
-    console.log(toDo);
-  };
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log(toDo);
-    if (toDo === "") {
-      return;
-    } else {
-      // setToDos(currentArray => {
-      //  const newArray = [toDo, ...currentArray]
-      //  console.log("inside", newArray);
-      //  return newArray;
-      // })
-      setToDos((currentArray) => [toDo, ...currentArray]);
-      // console.log(toDos);
-      setToDo("");
-    }
-    // console.log("outside", toDos);
-  };
-  // console.log("outside Fn", toDos);
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
   return (
     <div>
-      <h1>My To Dos ({toDos.length})</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChagne}
-          value={toDo}
-          type="text"
-          placeholder="Write your todo"
-        />
-        <button>Add To DO</button>
-      </form>
-      <hr />
-      <ul>
-        {toDos.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <h1>The Coins {loading ? "" : `${coins.length}`}</h1>
+      {loading ? (
+        <strong>Loading..</strong>
+      ) : (
+        <select>
+          {coins.map((coin, index) => (
+            <option key={index}>
+              {coin.name} ({coin.symbol}) : USD ${coin.quotes.USD.price}
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 }
