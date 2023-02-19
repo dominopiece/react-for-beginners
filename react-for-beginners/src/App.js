@@ -134,9 +134,12 @@ import { useState, useEffect } from "react";
 // }
 
 // # Coin Traker
+// TODO: 컨버트
 function App() {
   const [loading, setLoading] = useState(true);
   const [coins, setCoins] = useState([]);
+  const [price, setPrice] = useState(0);
+  const [coinName, setCoinName] = useState("");
   useEffect(() => {
     fetch("https://api.coinpaprika.com/v1/tickers")
       .then((response) => response.json())
@@ -145,13 +148,31 @@ function App() {
         setLoading(false);
       });
   }, []);
+  const onChange = (e) => {
+    setPrice(e.target.value);
+    console.log(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (price === 0) {
+      return;
+    } else {
+      setPrice(0);
+    }
+  };
+  const onSelectCoin = (e) => {
+    setCoinName(e.target.value);
+    console.log(e.target.value);
+    // console.dir(e.target)
+    console.log(parseFloat(e.target.value))
+  };
   return (
     <div>
       <h1>The Coins {loading ? "" : `${coins.length}`}</h1>
       {loading ? (
         <strong>Loading..</strong>
       ) : (
-        <select>
+        <select onChange={onSelectCoin}>
           {coins.map((coin, index) => (
             <option key={index}>
               {coin.name} ({coin.symbol}) : USD ${coin.quotes.USD.price}
@@ -159,6 +180,20 @@ function App() {
           ))}
         </select>
       )}
+      <div>
+        <h3>Coin Name: {coinName}</h3>
+        <h3>money {price}</h3>
+        <form onSubmit={onSubmit}>
+          <input
+            type="number"
+            value={price}
+            onChange={onChange}
+            placeholder="write your money"
+          />
+          <button>Reset</button>
+        </form>
+        <h3>{Number(coinName)/price}dddd</h3>
+      </div>
     </div>
   );
 }
