@@ -11,15 +11,15 @@ function Detail() {
     const json = await (
       await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
     ).json();
-    console.log(json);
+    // console.log(json);
     setInfo(json.data.movie);
     setLoading(false);
   };
-  console.log(info);
+  // console.log(info);
   useEffect(() => {
     getMovie();
   }, []);
-  console.log("detail.js", info.id);
+  // console.log("detail.js", info.id);
 
   return (
     <div>
@@ -36,6 +36,8 @@ function Detail() {
             url={info.url}
             runtime={info.runtime}
             genres={info.genres}
+            summary={info.description_full}
+            torrents={info.torrents}
           />
         </div>
       )}
