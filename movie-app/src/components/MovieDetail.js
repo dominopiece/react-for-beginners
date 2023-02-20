@@ -16,6 +16,11 @@ function MovieDetail({
         Title: {title}
       </h3>
       <h4>runtime: {runtime}</h4>
+      <ul>
+        {genres.map((genre) => (
+            <li>{genre}</li>
+        ))}
+      </ul>
     </div>
   );
 }

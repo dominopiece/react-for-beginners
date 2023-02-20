@@ -35,6 +35,7 @@ function Detail() {
             year={info.year}
             url={info.url}
             runtime={info.runtime}
+            genres={info.genres}
           />
         </div>
       )}
